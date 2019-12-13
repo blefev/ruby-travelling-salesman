@@ -1,14 +1,20 @@
 class Graph
   attr_reader :matrix
-  def initialize(num_vertices)
-    @matrix = Array.new(num_vertices) { Array.new(num_vertices, 0)}
+  attr_reader :size
+  def initialize(size)
+    # size is number of vertices
+    @size = size
+    @matrix = Array.new(size) { Array.new(size, 0)}
   end
 
   def add(from, to, weight=1)
     @matrix[from][to] = weight
+    @matrix[to][from] = weight
   end
 
-  def get(from, to)
-    @matrix[from][to]
+  def path_weight(path)
+    path.reduce(0) do |a,b|
+      
+    end
   end
 end
