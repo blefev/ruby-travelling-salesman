@@ -3,8 +3,8 @@ class TravellingSalesman
     @graph = graph
   end
 
-  def brute_force
-    nodes = (0..(@graph.size)).to_a
+  def brute_force(start)
+    nodes = (0..(@graph.size)).dup.delete(start)
 
     nodes.permutation
   end
