@@ -5,6 +5,7 @@ GRAPH_SIZE = 10
 
 def main
   g = gen_graph(GRAPH_SIZE)
+  puts g.to_s
 end
 
 def gen_graph(size)
