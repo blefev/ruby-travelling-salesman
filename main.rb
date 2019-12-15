@@ -6,11 +6,11 @@ MAX_DIST = 10
 
 def main
   g = gen_graph(GRAPH_SIZE)
-  puts g.to_s
+  #puts g.to_s
 
   tsp = TravellingSalesman.new(g)
-  path = tsp.brute_force()
-  p path
+  ans = tsp.dp
+  p ans
 end
 
 def gen_graph(size, max=MAX_DIST)

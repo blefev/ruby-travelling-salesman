@@ -30,7 +30,7 @@ class TravellingSalesman
   def dp
     n = @graph.size
 
-    Array.new(1 << (n - 1), Array.new(n, INFINITY))
+    best = Array.new(1 << (n - 1), Array.new(n, INFINITY))
     
     1.upto(1 << (n - 1) -1) do |visited|
       0.upto(n - 1) do |last|
@@ -46,7 +46,7 @@ class TravellingSalesman
 
             best[visited][last] = [
                 best[visited][last],
-                @graph.get[last][orev] + best[prev_visited][prev]
+                @graph.get(last, prev) + best[prev_visited][prev]
             ].min
           end
         end
