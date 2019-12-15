@@ -9,8 +9,8 @@ def main
   puts g.to_s
 
   tsp = TravellingSalesman.new(g)
-  path = tsp.brute_force(1)
-  puts path
+  path = tsp.brute_force()
+  p path
 end
 
 def gen_graph(size, max=MAX_DIST)
