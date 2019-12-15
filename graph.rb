@@ -17,8 +17,8 @@ class Graph
   end
 
   def path_weight(path)
-    path.each_cons(2).reduce(0) do |dist, from, to|
-        dist + get(from, to)
+    path.each_cons(2).reduce(0) do |dist, fromto|
+        dist + get(fromto.first, fromto.last)
     end
   end
 

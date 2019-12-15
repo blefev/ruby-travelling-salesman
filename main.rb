@@ -2,13 +2,18 @@ require_relative "./graph.rb"
 require_relative "./travelling_salesman.rb"
 
 GRAPH_SIZE = 10
+MAX_DIST = 10
 
 def main
   g = gen_graph(GRAPH_SIZE)
   puts g.to_s
+
+  tsp = TravellingSalesman.new(g)
+  path = tsp.brute_force(1)
+  puts path
 end
 
-def gen_graph(size)
+def gen_graph(size, max=MAX_DIST)
   g = Graph.new(size)
   rng = Random.new
 
@@ -17,7 +22,7 @@ def gen_graph(size)
       # don't add weight if same node
       next if i == j
       # generate random weight between 1..100
-      g.add(i, j, rng.rand(1..100))
+      g.add(i, j, rng.rand(1..max))
     end
   end
   g
