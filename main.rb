@@ -15,18 +15,7 @@ puts
 end
 
 def gen_graph(size, max=MAX_DIST)
-  g = Graph.new(size)
-  rng = Random.new
 
-  0.upto(size-1) do |i|
-    i.upto(size-1) do |j|
-      # don't add weight if same node
-      next if i == j
-      # generate random weight between 1..100
-      g.add(i, j, rng.rand(1..max))
-    end
-  end
-  g
 end
 
 main
