@@ -1,10 +1,12 @@
+
+
 class Graph
   attr_reader :matrix
   attr_reader :size
   def initialize(size)
     # size is number of vertices
     @size = size
-    @matrix = Array.new(size) { Array.new(size, 0)}
+    @matrix = Array.new(size) { Array.new(size, 1.0/0.0)}
   end
 
   def add(from, to, weight=1)
