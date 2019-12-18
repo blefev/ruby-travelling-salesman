@@ -18,6 +18,7 @@ def main
 
   puts "Brute force: #{tsp.brute_force}"
   puts "Dp2: #{tsp.dp2}"
+  puts "Dp3: #{tsp.dp3}"
   puts "Greedy: #{tsp.greedy}"
 
 end

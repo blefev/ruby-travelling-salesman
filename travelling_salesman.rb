@@ -121,56 +121,48 @@ class TravellingSalesman
 
   end
 
+  def dp3()
+    state = Array.new(@graph.size, Array.new)
 
+    state.map! do |neighbors|
+      neighbors = Array.new((1 << @graph.size) - 1, INFINITY)
+    end
 
-  def dp3
-    # let's get it right this time
-    #
+    dp3helper(0, 1, state)
+  end
 
-    n = @graph.size
-puts n
-    # first index will be int
-    # second index will be a set represented by an int
-    costs = {}
+  def dp3helper(pos, visited, state)
+    puts "!!!!!!!!!! IN DP3 !!!!!!!!!!!!!!"
 
-    home = 0
+    if visited == ((1 << (@graph.size-1)))
+      return @graph.get(pos, 0)
+    end
 
-    (1..n - 1).each do |k|
-      k_bits = 1 << k
-      costs[k] = {}
-      costs[k][k_bits] = @graph.get(home, k)
+    if state[pos][visited] != INFINITY
+      puts "NOT INFINITY!!!!"
+      return state[pos][visited]
     end
 
 
-    (2..n).each do |subset_size|
-      # iterate subsets represented as bits
-      (1..n).to_a.combination(subset_size).each do |subset|
-        bits = 0
-        p subset
-        subset.each do |bit|
-          bits |= 1 << bit
-        end
+    puts "IS INFINITY"
 
-        puts bits.to_s(2)
-
-        subset.each do |k|
-          prev = bits & ~(1 << k)
-
-          res = []
-
-          subset.each do |m|
-            next if m == 0 or m == k
-            costs[m][prev] = {} if costs[m][prev].nil?
-            res << costs[m][prev] + @graph.get(m, k)
-          end
-
-          costs[k][bits] = res.min
-
-          puts res
-        end
+    (0..@graph.size - 1).each do |i|
+      puts "i: #{i}"
+      puts "Visited & 1 << i: #{(visited & (1 << i))}"
+      if i == pos || (visited & (1 << i) != 0)
+        next
       end
 
+      puts "--> i: #{i}"
+
+      distance = @graph.get(pos, i) + (dp3helper(i, visited | (1 << i), state) || 0)
+
+      if distance < state[pos][visited]
+        state[pos][visited] = distance
+      end
     end
+
+    return state[pos][visited]
   end
 
 
