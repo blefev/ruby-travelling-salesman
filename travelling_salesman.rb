@@ -12,19 +12,17 @@ class TravellingSalesman
     nodes = (1..(@graph.size-1)).to_a
 
     min = nil
-    best_path = nil
 
     nodes.permutation.each do |perm|
       path = [0] + perm + [0] # set 0 as home and end
-      weight = @graph.path_weight(perm)  
+      weight = @graph.path_weight(path)
 
       if min.nil? || weight < min
         min = weight
-        best_path = perm
       end
     end
 
-    best_path
+    min
 
   end
 
@@ -78,15 +76,16 @@ class TravellingSalesman
     costs = {}
 
     1.upto(n-1) do |k|
-      puts "k: #{k}"
+      puts "setting: #{(1 << k).to_s(2)},#{k} = #{@graph.get(0, k)}"
       costs["#{1 << k},#{k}"] = [@graph.get(0, k), 0]
     end
 
-    2.upto(n) do |subset_size|
-      (1..n).to_a.combination(subset_size).each  do |subset|
+    2.upto(n-1) do |subset_size|
+      (1..n-1).to_a.combination(subset_size).each  do |subset|
+
         bits = 0
         subset.each do |bit|
-          bits = bits | 1 << bit
+          bits |= 1 << bit
         end
 
         subset.each do |k|
@@ -95,8 +94,7 @@ class TravellingSalesman
           results = []
           subset.each do |m|
             next if m == 0 or m == k
-            puts "prev #{prev}"
-            puts "m #{m}"
+            costs["#{prev},#{m}"] = [] if costs["#{prev},#{m}"].nil?
             results.push([costs["#{prev},#{m}"].first + @graph.get(m, k), m])
           end
 
@@ -106,15 +104,16 @@ class TravellingSalesman
       end
     end
 
-    bits = (2**n = 1) - 1
+    bits = (2**n = 1)
 
     res = []
 
-    1.upto(n) do |l|
+    1.upto(n) do |k|
+      puts "bits: #{bits},#{k}"
       res.push([costs["#{bits},#{k}"].first + @graph.get(k, 0), k])
     end
 
-    (opt, parent) = min(res)
+    (opt, parent) = res.min
 
 
 
@@ -129,7 +128,7 @@ class TravellingSalesman
     #
 
     n = @graph.size
-
+puts n
     # first index will be int
     # second index will be a set represented by an int
     costs = {}
@@ -137,9 +136,40 @@ class TravellingSalesman
     home = 0
 
     (1..n - 1).each do |k|
-      k_bits = k.to_s(2).to_i
+      k_bits = 1 << k
       costs[k] = {}
       costs[k][k_bits] = @graph.get(home, k)
+    end
+
+
+    (2..n).each do |subset_size|
+      # iterate subsets represented as bits
+      (1..n).to_a.combination(subset_size).each do |subset|
+        bits = 0
+        p subset
+        subset.each do |bit|
+          bits |= 1 << bit
+        end
+
+        puts bits.to_s(2)
+
+        subset.each do |k|
+          prev = bits & ~(1 << k)
+
+          res = []
+
+          subset.each do |m|
+            next if m == 0 or m == k
+            costs[m][prev] = {} if costs[m][prev].nil?
+            res << costs[m][prev] + @graph.get(m, k)
+          end
+
+          costs[k][bits] = res.min
+
+          puts res
+        end
+      end
+
     end
   end
 
