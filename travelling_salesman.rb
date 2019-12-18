@@ -122,40 +122,26 @@ class TravellingSalesman
   end
 
   def dp3()
-    state = Array.new(@graph.size, Array.new)
-
-    state.map! do |neighbors|
-      neighbors = Array.new((1 << @graph.size) - 1, INFINITY)
-    end
+    state = Array.new(@graph.size, Array.new((1 << @graph.size) - 1, INFINITY))
 
     dp3helper(0, 1, state)
   end
 
   def dp3helper(pos, visited, state)
-    puts "!!!!!!!!!! IN DP3 !!!!!!!!!!!!!!"
-
-    if visited == ((1 << (@graph.size-1)))
+    if visited == ((1 << (@graph.size)) - 1)
       return @graph.get(pos, 0)
     end
 
     if state[pos][visited] != INFINITY
-      puts "NOT INFINITY!!!!"
       return state[pos][visited]
     end
 
-
-    puts "IS INFINITY"
-
-    (0..@graph.size - 1).each do |i|
-      puts "i: #{i}"
-      puts "Visited & 1 << i: #{(visited & (1 << i))}"
+    (0..@graph.size-1).each do |i|
       if i == pos || (visited & (1 << i) != 0)
         next
       end
 
-      puts "--> i: #{i}"
-
-      distance = @graph.get(pos, i) + (dp3helper(i, visited | (1 << i), state) || 0)
+      distance = @graph.get(pos, i) + (dp3helper(i, visited | (1 << i), state))
 
       if distance < state[pos][visited]
         state[pos][visited] = distance
