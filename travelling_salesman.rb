@@ -124,6 +124,24 @@ class TravellingSalesman
 
 
 
+  def dp3
+    # let's get it right this time
+    #
+
+    n = @graph.size
+
+    # first index will be int
+    # second index will be a set represented by an int
+    costs = {}
+
+    home = 0
+
+    (1..n - 1).each do |k|
+      k_bits = k.to_s(2).to_i
+      costs[k] = {}
+      costs[k][k_bits] = @graph.get(home, k)
+    end
+  end
 
 
 

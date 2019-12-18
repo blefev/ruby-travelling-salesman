@@ -15,7 +15,7 @@ def main
   puts
 
   tsp = TravellingSalesman.new(g)
-  ans = tsp.greedy
+  ans = tsp.dp3
   p ans
 end
 
