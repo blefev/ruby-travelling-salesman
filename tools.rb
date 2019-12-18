@@ -34,7 +34,7 @@ class Tools
         g.add(i, j, distance)
       end
     end
-    [g, vertice_pairs]
+    g
   end
 
 
@@ -61,7 +61,7 @@ class Tools
       x = (Math.cos(rad) * radius)
       y = (Math.sin(rad) * radius)
 
-      puts "x: #{x}, y: #{y}"
+      #puts "x: #{x}, y: #{y}"
 
       vertice_pairs[vertex] = [x, y]
 
@@ -84,6 +84,7 @@ class Tools
         g.add(i, j, distance)
       end
     end
-    [g, vertice_pairs]
+
+    g
   end
 end

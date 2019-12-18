@@ -6,21 +6,21 @@ GRAPH_SIZE = 10
 MAX_DIST = 10
 
 def main
-  #(g, circle_pairs) = Tools.generate_random_circular_graph_cost_matrix(GRAPH_SIZE, 16)
-  # puts g.to_s
-  # puts
-  # p circle_pairs
-  # puts
-  # puts
+  g = Tools.generate_random_circular_graph_cost_matrix(GRAPH_SIZE, 16)
+  puts g.to_s
+  puts
+  p circle_pairs
+  puts
+  puts
 
-  g = Graph.new(4)
 
-  g.add(0,1,20)
-  g.add(0,2,42)
-  g.add(0,3,35)
-  g.add(1,2,30)
-  g.add(1,3,34)
-  g.add(2,3,12)
+
+  # g.add(0,1,20)
+  # g.add(0,2,42)
+  # g.add(0,3,35)
+  # g.add(1,2,30)
+  # g.add(1,3,34)
+  # g.add(2,3,12)
 
   tsp = TravellingSalesman.new(g)
 
