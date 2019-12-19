@@ -43,22 +43,33 @@ class TravellingSalesman
     n = @graph.size
 
     (1..n-1).each do |k|
-      costs[k][arr_to_b([n])] = @graph.get(0, k)
+      bin_k = arr_to_b([n])
+      costs[k][arr_to_b([k])] = @graph.get(0, k)
     end
 
     (2..n-1).each do |s|
+      if s == n-1
+        puts "hiya!"
+      end
       (1..n-1).to_a.combination(s) do |subset|
         subset.each do |k|
-          costs[k][arr_to_b(subset)] = nil
+          bin_subset = arr_to_b(subset)
+
           # find minimum m not  k, m in S Cost plus distance
           # for every m in S-k
           subset_sans_k = subset.reject{|x| x == k}
-          puts "====\nk: #{k}"
-          costs[k][subset] = subset_sans_k.min do |m1, m2|
-            costs[m1][subset_sans_k] + @graph.get(m1, k) <=> costs[m1][subset_sans_k] + @graph.get(m1, k)
+          bin_ssk = arr_to_b(subset_sans_k)
+
+          costs[k][bin_subset] = subset_sans_k.min do |m1, m2|
+            costs[m1][bin_ssk] + @graph.get(m1, k) <=> costs[m2][bin_ssk] + @graph.get(m2, k)
           end
         end
       end
+    end
+
+    bin_full_tour = arr_to_b(1..n-1)
+    (1..n-1).to_a.min do |k1, k2|
+      costs[k1][bin_full_tour] + @graph.get(0, k1) <=> costs[k2][bin_full_tour] + @graph.get(0, k2)
     end
   end
 
