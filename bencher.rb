@@ -1,8 +1,8 @@
 require 'benchmark'
 
 class Bencher
-  def initialize(max_input = 23, trials = 4)
-    @max_input = max_input
+  def initialize(max_inputs, trials = 4)
+    @max_inputs = max_inputs
     @trials = trials
   end
 
@@ -18,7 +18,7 @@ class Bencher
 
     prev = 0
 
-    2.upto(@max_input) do |n|
+    2.upto(@max_inputs[name]) do |n|
       puts "Trial with Input #{n}"
       sum = 0
 

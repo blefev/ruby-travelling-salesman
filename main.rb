@@ -10,14 +10,9 @@ def main
 
   tsp = TravellingSalesman.new(g)
 
-
   puts "Brute force: #{tsp.brute_force}"
   puts "Dp: #{tsp.dp}"
   puts "Greedy: #{tsp.greedy}"
-
-end
-
-def gen_graph(size, max=MAX_DIST)
 
 end
 
