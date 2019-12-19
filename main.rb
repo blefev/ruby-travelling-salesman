@@ -6,32 +6,14 @@ GRAPH_SIZE = 10
 MAX_DIST = 10
 
 def main
-
-
-
   g = TSPTools.generate_random_circular_graph_cost_matrix(GRAPH_SIZE, 16)
-  puts g.to_s
-  puts
-#  p circle_pairs
-  puts
-  puts
-
-
-
-  # g.add(0,1,20)
-  # g.add(0,2,42)
-  # g.add(0,3,35)
-  # g.add(1,2,30)
-  # g.add(1,3,34)
-  # g.add(2,3,12)
 
   tsp = TravellingSalesman.new(g)
 
 
- # puts "Brute force: #{tsp.brute_force}"
+  puts "Brute force: #{tsp.brute_force}"
   puts "Dp: #{tsp.dp}"
-  #puts "Dp3: #{tsp.dp3}"
- # puts "Greedy: #{tsp.greedy}"
+  puts "Greedy: #{tsp.greedy}"
 
 end
 

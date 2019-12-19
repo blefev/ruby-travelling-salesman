@@ -21,11 +21,8 @@ class TravellingSalesman
         min = weight
       end
     end
-
     min
-
   end
-
 
   def arr_to_b(array)
     array.reduce(0) { |a,x| a | 2**(x-1) }
@@ -37,13 +34,13 @@ class TravellingSalesman
     end
   end
 
-
   def dp
-    costs = Array.new(@graph.size, Hash.new)
+    costs = Hash.new
     n = @graph.size
 
+    # initialize costs for 0 to all others
     (1..n-1).each do |k|
-      bin_k = arr_to_b([n])
+      costs[k] = Hash.new
       costs[k][arr_to_b([k])] = @graph.get(0, k)
     end
 
@@ -52,12 +49,10 @@ class TravellingSalesman
         subset.each do |k|
           bin_subset = arr_to_b(subset)
 
-          # find minimum m not  k, m in S Cost plus distance
-          # for every m in S-k
           subset_sans_k = subset.reject{|x| x == k}
           bin_ssk = arr_to_b(subset_sans_k)
 
-          costs[k][bin_subset] = subset_sans_k.map do |m,|
+          costs[k][bin_subset] = subset_sans_k.map do |m|
             costs[m][bin_ssk] + @graph.get(m, k)
           end.min
         end
@@ -65,23 +60,12 @@ class TravellingSalesman
     end
 
     bin_full_tour = arr_to_b(1..n-1)
+    # find best cost for full tour
     (1..n-1).to_a.map do |k|
       costs[k][bin_full_tour] + @graph.get(0, k)
     end.min
   end
 
-
-
-
-
-#
-# cost_table: 2d array of vertex and tour
-#
-#
-  def dp_rec(tour, c, cost_table)
-
-
-  end
 
 
 
