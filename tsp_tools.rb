@@ -1,4 +1,4 @@
-class Tools
+class TSPTools
   @@rng = Random.new
 
   def self.generate_random_cost_matrix(size, max = 10)

@@ -2,7 +2,7 @@ require "minitest/reporters"
 require "minitest/autorun"
 require_relative "./graph.rb"
 require_relative "./travelling_salesman.rb"
-require_relative "./tools.rb"
+require_relative "./p_tools.rb"
 
 GRAPH_SIZE = 10
 
@@ -11,7 +11,7 @@ MiniTest::Reporters.use!
 class CircleTests < Minitest::Test
   def setup
     radius = 16
-    @graph = Tools.generate_random_circular_graph_cost_matrix(GRAPH_SIZE, radius)
+    @graph = TSPTools.generate_random_circular_graph_cost_matrix(GRAPH_SIZE, radius)
     @tsp = TravellingSalesman.new(@graph)
     @expected_dist = 2 * Math::PI * radius
   end
