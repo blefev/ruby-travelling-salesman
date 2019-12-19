@@ -48,9 +48,6 @@ class TravellingSalesman
     end
 
     (2..n-1).each do |s|
-      if s == n-1
-        puts "hiya!"
-      end
       (1..n-1).to_a.combination(s) do |subset|
         subset.each do |k|
           bin_subset = arr_to_b(subset)
@@ -60,17 +57,17 @@ class TravellingSalesman
           subset_sans_k = subset.reject{|x| x == k}
           bin_ssk = arr_to_b(subset_sans_k)
 
-          costs[k][bin_subset] = subset_sans_k.min do |m1, m2|
-            costs[m1][bin_ssk] + @graph.get(m1, k) <=> costs[m2][bin_ssk] + @graph.get(m2, k)
-          end
+          costs[k][bin_subset] = subset_sans_k.map do |m,|
+            costs[m][bin_ssk] + @graph.get(m, k)
+          end.min
         end
       end
     end
 
     bin_full_tour = arr_to_b(1..n-1)
-    (1..n-1).to_a.min do |k1, k2|
-      costs[k1][bin_full_tour] + @graph.get(0, k1) <=> costs[k2][bin_full_tour] + @graph.get(0, k2)
-    end
+    (1..n-1).to_a.map do |k|
+      costs[k][bin_full_tour] + @graph.get(0, k)
+    end.min
   end
 
 
