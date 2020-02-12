@@ -73,12 +73,6 @@ class TravellingSalesman
     end.min
   end
 
-
-
-
-
-
-
   def greedy
     n = @graph.size
 
@@ -105,7 +99,7 @@ class TravellingSalesman
       unvisited.delete(from)
       total += min
     end
-
+    
     total + @graph.get(from, 0)
   end
 end
